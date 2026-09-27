@@ -4,15 +4,16 @@ import { Link } from "react-router-dom";
 
 type AppRailProps = {
   active: "bots" | "artifacts";
+  className?: string;
 };
 
-export function AppRail({ active }: AppRailProps) {
+export function AppRail({ active, className }: AppRailProps) {
   const { t } = useLingui();
   return (
     <nav
       data-testid="app-rail"
       aria-label={t`Sections`}
-      className="flex w-14 shrink-0 flex-col items-center gap-1 border-e border-sidebar-border bg-sidebar py-3"
+      className={`flex w-14 shrink-0 flex-col items-center gap-1 border-e border-sidebar-border bg-sidebar py-3 ${className ?? ""}`}
     >
       <RailLink to="/app" label={t`Bots`} active={active === "bots"}>
         <Bot size={19} strokeWidth={1.75} />
