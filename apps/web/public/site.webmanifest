@@ -3,6 +3,8 @@
   "short_name": "Rakazo",
   "description": "Your team of always-on agents.",
   "start_url": "/",
+  "id": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#050506",
   "theme_color": "#050506",
