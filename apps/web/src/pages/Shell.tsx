@@ -4829,10 +4829,10 @@ const Transcript = memo(function Transcript({
                   className={
                     peerReceipt
                       ? undefined
-                      : `relative w-fit min-w-0 ${
+                      : `relative w-fit min-w-0 max-w-none ${
                           message.role === "user"
-                            ? "max-w-[min(84%,calc(100%_-_6rem))]"
-                            : "max-w-[min(88%,calc(100%_-_6rem))]"
+                            ? "sm:max-w-[min(84%,calc(100%_-_6rem))]"
+                            : "sm:max-w-[min(88%,calc(100%_-_6rem))]"
                         }`
                   }
                 >
