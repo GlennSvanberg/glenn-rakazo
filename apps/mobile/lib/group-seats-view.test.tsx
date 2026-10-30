@@ -51,7 +51,7 @@ vi.mock("../lib/native", () => ({
 const member = (index: number) => ({
   botId: `bot-${index}`,
   name: `Bot ${index}`,
-  color: `#3B82F6::shape_${index % 8}`,
+  color: `#5B2EE0::shape_${index % 8}`,
 });
 
 let container: HTMLDivElement;

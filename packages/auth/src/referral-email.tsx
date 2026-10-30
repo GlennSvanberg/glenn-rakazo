@@ -15,16 +15,16 @@ export function referralEmail(
     <>
       <Text>Hi {displayName(user.name, "there")},</Text>
       <Text>
-        Invite a friend to Rakazo and earn a free month when they start a qualifying subscription
-        with a new card.{" "}
+        Invite a friend to FAIWE Agents and earn a free month when they start a qualifying
+        subscription with a new card.{" "}
         <Link href={invitePageUrl} style={linkStyle}>
-          Open Rakazo
+          Open FAIWE Agents
         </Link>{" "}
         and choose Invite friends for your link.
       </Text>
       <Text>Have any questions? Just reply to this email.</Text>
       <Text>
-        If you're enjoying Rakazo,{" "}
+        If you're enjoying FAIWE Agents,{" "}
         <Link href="https://github.com/elie222/rakazo" style={linkStyle}>
           give us a star on GitHub
         </Link>

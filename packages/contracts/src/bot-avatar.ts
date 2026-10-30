@@ -34,7 +34,7 @@ export function parseBotAvatarValue(raw: string): ParsedBotAvatar {
   }
   if (raw.includes("::shape_")) {
     const parts = raw.split("::shape_");
-    const color = parts[0] || "#F97316";
+    const color = parts[0] || "#F36F16";
     const rawShape = parts[1] ?? "0";
     const parsedShape = /^\d+$/.test(rawShape) ? Number(rawShape) : 0;
     const shapeIndex = Number.isSafeInteger(parsedShape) ? parsedShape % BOT_AVATAR_SHAPE_COUNT : 0;

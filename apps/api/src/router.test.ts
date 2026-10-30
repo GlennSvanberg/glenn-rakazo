@@ -8850,7 +8850,7 @@ describe("export.bot", () => {
     return (await exportManifest(scope, home)).files.sort((a, b) => a.path.localeCompare(b.path));
   }
 
-  it.each(["#8B5CF6::shape_3", "data:image/png;base64,aGVsbG8="])(
+  it.each(["#9A4DFF::shape_3", "data:image/png;base64,aGVsbG8="])(
     "exports the selected set and untouched avatar value (%s)",
     async (color) => {
       const manifest = await exportManifest("team", await homeWith({}), {

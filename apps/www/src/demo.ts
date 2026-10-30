@@ -207,7 +207,7 @@ export const DEMO_BOTS: DemoBot[] = [
   {
     id: "talent",
     name: "Talent Scout",
-    color: "#3B82F6",
+    color: "#5B2EE0",
     time: "Yesterday",
     preview: "3 intros drafted in your voice, held",
     routines: [{ name: "Pipeline refresh", when: "Tue + Thu" }],

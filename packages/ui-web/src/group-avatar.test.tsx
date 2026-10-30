@@ -9,7 +9,7 @@ describe("GroupAvatar", () => {
   });
 
   it("renders single BotAvatar when 1 member", () => {
-    const html = renderToString(<GroupAvatar members={[{ name: "Harry", color: "#8B5CF6" }]} />);
+    const html = renderToString(<GroupAvatar members={[{ name: "Harry", color: "#9A4DFF" }]} />);
     expect(html).toContain("rakazo-organic-avatar");
   });
 
@@ -17,8 +17,8 @@ describe("GroupAvatar", () => {
     const html = renderToString(
       <GroupAvatar
         members={[
-          { name: "Sherlock", color: "#8B5CF6" },
-          { name: "Elon", color: "#06B6D4" },
+          { name: "Sherlock", color: "#9A4DFF" },
+          { name: "Elon", color: "#1FFFF8" },
         ]}
       />,
     );
@@ -31,8 +31,8 @@ describe("GroupAvatar", () => {
     const html = renderToString(
       <GroupAvatar
         members={[
-          { name: "Sherlock", color: "#8B5CF6", status: "running" },
-          { name: "Elon", color: "#06B6D4", status: "idle" },
+          { name: "Sherlock", color: "#9A4DFF", status: "running" },
+          { name: "Elon", color: "#1FFFF8", status: "idle" },
         ]}
       />,
     );
@@ -44,9 +44,9 @@ describe("GroupAvatar", () => {
     const html = renderToString(
       <GroupAvatar
         members={[
-          { name: "Sherlock", color: "#8B5CF6" },
-          { name: "Elon", color: "#06B6D4" },
-          { name: "Penny", color: "#EC4899" },
+          { name: "Sherlock", color: "#9A4DFF" },
+          { name: "Elon", color: "#1FFFF8" },
+          { name: "Penny", color: "#E788CE" },
         ]}
       />,
     );
@@ -58,10 +58,10 @@ describe("GroupAvatar", () => {
     const html = renderToString(
       <GroupAvatar
         members={[
-          { name: "Sherlock", color: "#8B5CF6" },
-          { name: "Elon", color: "#06B6D4" },
-          { name: "Penny", color: "#EC4899" },
-          { name: "Harry", color: "#10B981" },
+          { name: "Sherlock", color: "#9A4DFF" },
+          { name: "Elon", color: "#1FFFF8" },
+          { name: "Penny", color: "#E788CE" },
+          { name: "Harry", color: "#47FF9A" },
         ]}
       />,
     );

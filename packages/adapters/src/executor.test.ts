@@ -1263,7 +1263,7 @@ describe("parseUpdateBotPatch", () => {
   });
 
   it("leaves avatar-only args for the executor to resolve", () => {
-    expect(parseUpdateBotPatch({ color: "#8B5CF6" })).toEqual({ patch: {} });
+    expect(parseUpdateBotPatch({ color: "#9A4DFF" })).toEqual({ patch: {} });
     expect(parseUpdateBotPatch({ artifact_id: "art-1" })).toEqual({ patch: {} });
     expect(parseUpdateBotPatch({ use_attached_image: true })).toEqual({ patch: {} });
   });

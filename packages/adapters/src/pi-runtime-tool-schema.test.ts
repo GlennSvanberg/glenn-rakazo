@@ -315,12 +315,12 @@ describe("update_bot parameters", () => {
     const schema = JSON.parse(JSON.stringify(parametersFor(tool!))) as Record<string, unknown>;
     expect(
       parseConnectorToolArgs(schema, {
-        color: "#8B5CF6",
+        color: "#9A4DFF",
         artifact_id: "art-1",
         use_attached_image: true,
       }),
     ).toEqual({
-      color: "#8B5CF6",
+      color: "#9A4DFF",
       artifact_id: "art-1",
       use_attached_image: true,
     });

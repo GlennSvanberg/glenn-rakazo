@@ -15,7 +15,7 @@ describePostgres("avatar-set migration and persistence (PostgreSQL)", () => {
       await client.query(
         "CREATE TEMP TABLE bots (id TEXT PRIMARY KEY, color TEXT NOT NULL) ON COMMIT DROP",
       );
-      const colors = ["#8B5CF6", "#8B5CF6::shape_3", "data:image/png;base64,aGVsbG8="];
+      const colors = ["#9A4DFF", "#9A4DFF::shape_3", "data:image/png;base64,aGVsbG8="];
       for (const [index, color] of colors.entries())
         await client.query("INSERT INTO bots (id, color) VALUES ($1, $2)", [`old-${index}`, color]);
       for (const migration of [
@@ -33,13 +33,13 @@ describePostgres("avatar-set migration and persistence (PostgreSQL)", () => {
       ).toEqual(
         colors.map((color, index) => ({ id: `old-${index}`, color, avatarSet: "organic" })),
       );
-      await client.query("INSERT INTO bots (id, color) VALUES ($1, $2)", ["new", "#3B82F6"]);
+      await client.query("INSERT INTO bots (id, color) VALUES ($1, $2)", ["new", "#5B2EE0"]);
       expect(
         (await client.query('SELECT "avatarSet" FROM bots WHERE id=$1', ["new"])).rows[0].avatarSet,
       ).toBe("organic");
       await client.query('INSERT INTO bots (id, color, "avatarSet") VALUES ($1, $2, $3)', [
         "explicit",
-        "#3B82F6",
+        "#5B2EE0",
         "organic",
       ]);
       await client.query('UPDATE bots SET "avatarSet"=$1 WHERE id=$2', ["rakazo", "old-0"]);

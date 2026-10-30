@@ -56,18 +56,18 @@ async function mount(status?: string) {
     root.render(
       <BotAvatarActivityProvider source={webLogoAvatarActivity}>
         <div data-testid="live">
-          <BotAvatar identity="bot-a" color="#10B981" avatarSet="rakazo" status={status} />
+          <BotAvatar identity="bot-a" color="#47FF9A" avatarSet="rakazo" status={status} />
         </div>
-        <BotAvatar identity="old-bot" color="#8B5CF6" />
+        <BotAvatar identity="old-bot" color="#9A4DFF" />
         <BotAvatar identity="photo" color="data:image/png;base64,YQ==" avatarSet="rakazo" />
-        <BotAvatar identity="shape" color="#8B5CF6::shape_2" avatarSet="rakazo" />
-        <BotAvatar identity="explicit" color="#F97316" avatarSet="rakazo" activity="reading" />
+        <BotAvatar identity="shape" color="#9A4DFF::shape_2" avatarSet="rakazo" />
+        <BotAvatar identity="explicit" color="#F36F16" avatarSet="rakazo" activity="reading" />
       </BotAvatarActivityProvider>,
     ),
   );
 }
 const live = () => container.querySelector<SVGSVGElement>('[data-testid="live"] svg')!;
-it("projects production feed events into the live avatar and subscribes only live Rakazo consumers", async () => {
+it("projects production feed events into the live avatar and subscribes only live FAIWE Agents consumers", async () => {
   const subscribe = vi.spyOn(webLogoAvatarActivity, "subscribe");
   await mount();
   expect(subscribe).toHaveBeenCalledTimes(1);
@@ -142,7 +142,7 @@ it("keeps static SVG artwork mounted through rapid live activity changes", async
   await act(async () =>
     root.render(
       <BotAvatarActivityProvider source={webLogoAvatarActivity}>
-        <BotAvatar identity="bot-a" color="#10B981" avatarSet="rakazo" size={22} status="running" />
+        <BotAvatar identity="bot-a" color="#47FF9A" avatarSet="rakazo" size={22} status="running" />
       </BotAvatarActivityProvider>,
     ),
   );

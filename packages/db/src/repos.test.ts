@@ -51,7 +51,7 @@ describe("createRepos.listBots", () => {
   it.each([undefined, "organic", "rakazo"])(
     "preserves appearance metadata on reload (set=%s)",
     async (avatarSet) => {
-      const rows = ["#8B5CF6", "#8B5CF6::shape_3", "data:image/png;base64,aGVsbG8="].map(
+      const rows = ["#9A4DFF", "#9A4DFF::shape_3", "data:image/png;base64,aGVsbG8="].map(
         (color, index) => ({ ...baseBot, id: `bot-${index}`, color, avatarSet }),
       );
       const prisma = {

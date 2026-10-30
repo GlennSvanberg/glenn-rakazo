@@ -154,7 +154,7 @@ describe("BotAvatar", () => {
       botId: "bot-1",
       run: { id: "native-run", botId: "bot-1", status: "running", trigger: "user" },
     });
-    render("#10B981", "rakazo");
+    render("#47FF9A", "rakazo");
     const latestEye = () =>
       nativeProps
         .map((sample) => sample())
@@ -172,7 +172,7 @@ describe("BotAvatar", () => {
         }),
       );
     send(1, true);
-    const frame = logoAvatarFrame("thinking", logoAvatarTraits("bot-1", "#10B981"), 0, true);
+    const frame = logoAvatarFrame("thinking", logoAvatarTraits("bot-1", "#47FF9A"), 0, true);
     expect(latestEye()).toMatchObject({ cx: 40.5 + frame.eyeX, cy: 49 + frame.eyeY });
     send(2, false);
     expect(latestEye()).toMatchObject({ cx: 40.5, cy: 49 });
@@ -231,7 +231,7 @@ describe("BotAvatar", () => {
   const bodies = (view: HTMLElement) =>
     Array.from(view.querySelectorAll("path"), (path) => path.dataset.d);
 
-  it("preserves the shared native tap reactions on the Rakazo set", () => {
+  it("preserves the shared native tap reactions on the FAIWE Agents set", () => {
     nativeMotion.reduced = false;
     const view = render("#3EC5A8", "rakazo", { pokeable: true, motion: "running" });
     const button = view.querySelector("button");
@@ -307,11 +307,11 @@ describe("BotAvatar", () => {
   });
 
   it("keeps a shape picked in Avatar Studio", () => {
-    const view = render("#8B5CF6::shape_3");
+    const view = render("#9A4DFF::shape_3");
     expect(bodies(view)).toEqual([shippedBotAvatarShapePath(3)]);
     expect(view.querySelectorAll("ellipse")).toHaveLength(2);
   });
-  it("draws the explicitly selected Rakazo set as paths and gradients without a raster image", () => {
+  it("draws the explicitly selected FAIWE Agents set as paths and gradients without a raster image", () => {
     const view = render("#3EC5A8", "rakazo");
     expect(bodies(view)).toContain(LOGO_BODY_PATH);
     expect(bodies(view)).not.toContain(organicAvatarPath(avatarIdentitySeed("bot-1")));
@@ -320,14 +320,14 @@ describe("BotAvatar", () => {
     expect(view.querySelector("radialGradient")).not.toBeNull();
   });
 
-  it("keeps a custom picture when the stored set is Rakazo", () => {
+  it("keeps a custom picture when the stored set is FAIWE Agents", () => {
     const view = render("data:image/png;base64,abc", "rakazo");
     expect(view.querySelector("img")?.getAttribute("src")).toBe("data:image/png;base64,abc");
     expect(bodies(view)).toEqual([]);
   });
 
-  it("keeps an explicitly selected original shape when the stored set is Rakazo", () => {
-    const view = render("#8B5CF6::shape_3", "rakazo");
+  it("keeps an explicitly selected original shape when the stored set is FAIWE Agents", () => {
+    const view = render("#9A4DFF::shape_3", "rakazo");
     expect(bodies(view)).toEqual([shippedBotAvatarShapePath(3)]);
   });
   it("updates native SVG hosts with finite six-value matrices and numeric eye props", () => {

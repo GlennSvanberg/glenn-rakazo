@@ -1,7 +1,15 @@
+@font-face {
+  font-family: "Rethink Sans";
+  src: url("/fonts/RethinkSans-Variable.ttf") format("truetype");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Aeonik";
+  font-family: "Rethink Sans", Arial, sans-serif;
   src: url("/fonts/aeonik-medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
@@ -9,43 +17,43 @@
 }
 
 :root {
-  --page: #fdfdfd;
-  --surface: #ffffff;
-  --surface-soft: #f7f7f7;
-  --ink: #242424;
-  --body: #3d3d3d;
-  --muted: #848484;
-  --muted-2: #6d6e70;
-  --line: #efefef;
-  --line-2: #e6e6e6;
-  --blue: #2563eb;
-  --blue-top: #2965ec;
-  --blue-bottom: #5c89f8;
-  --blue-soft: #eff6ff;
-  --blue-soft-2: #d8e9ff;
-  --blue-line: #d6e8fc;
-  --panel: #0b0b0c;
-  --panel-2: #0f0f10;
-  --panel-line: #1b1b1d;
-  --panel-line-2: #232326;
-  --panel-copy: #dfdfe2;
-  --panel-muted: #85858a;
-  --panel-muted-2: #6c6c70;
-  --panel-cream: #f1f1ef;
-  --panel-cream-ink: #1a1a1a;
-  --success: #30a24b;
-  --coral: #f2622a;
-  --coral-soft: #fde3d6;
-  --indigo: #6a6bf5;
-  --indigo-soft: #e2e2fd;
-  --green: #1f7f5f;
-  --green-soft: #d6f3e9;
-  --amber: #d9822b;
-  --amber-soft: #fdecd3;
-  --violet: #8b5cf6;
-  --violet-soft: #ece3fd;
-  --rose: #e0457b;
-  --rose-soft: #fce1ea;
+  --page: #FFFEE8;
+  --surface: #FFFFFF;
+  --surface-soft: #F3F2DE;
+  --ink: #00002C;
+  --body: #1A1A42;
+  --muted: #5C5C78;
+  --muted-2: #4A4A64;
+  --line: #E4E2CC;
+  --line-2: #D9D7C0;
+  --blue: #6B2BD4;
+  --blue-top: #9A4DFF;
+  --blue-bottom: #6B2BD4;
+  --blue-soft: #F3EEFF;
+  --blue-soft-2: #E4D8FF;
+  --blue-line: #D4C4FF;
+  --panel: #00002C;
+  --panel-2: #121244;
+  --panel-line: #2A2A5C;
+  --panel-line-2: #34346A;
+  --panel-copy: #FFFEE8;
+  --panel-muted: #C8C7B4;
+  --panel-muted-2: #A8A794;
+  --panel-cream: #FFFEE8;
+  --panel-cream-ink: #00002C;
+  --success: #0B7A45;
+  --coral: #F36F16;
+  --coral-soft: #FFE4D4;
+  --indigo: #9A4DFF;
+  --indigo-soft: #EDE4FF;
+  --green: #0B7A45;
+  --green-soft: #D4F8E8;
+  --amber: #F36F16;
+  --amber-soft: #FFE8D0;
+  --violet: #9A4DFF;
+  --violet-soft: #EDE4FF;
+  --rose: #E788CE;
+  --rose-soft: #FBE4F4;
   --shadow-soft: 0 2px 16px rgba(0, 0, 0, 0.03);
   --shadow-demo: 0 30px 80px -30px rgba(0, 0, 0, 0.35);
   --radius-card: 20px;
@@ -61,7 +69,7 @@ body {
   min-width: 320px;
   background: var(--page);
   color: var(--body);
-  font-family: Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -188,7 +196,7 @@ button {
 }
 
 .brand-lockup__word {
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-size: 21px;
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -372,7 +380,7 @@ button.button--secondary:focus-visible {
 .guide h1 {
   margin: 0;
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-weight: 500;
   letter-spacing: -0.02em;
 }
@@ -531,7 +539,7 @@ html[data-platform="web"] [data-show]:not([data-show~="web"]) {
 .feature-card h3 {
   margin: 0;
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -815,7 +823,7 @@ html[data-platform="web"] [data-show]:not([data-show~="web"]) {
 
 .stat-value {
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-size: 30px;
   letter-spacing: -0.02em;
 }
@@ -2571,7 +2579,7 @@ button.product-demo__dock-icon {
 .privacy-copy h2 {
   margin: 44px 0 12px;
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-size: 22px;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -2614,7 +2622,7 @@ button.product-demo__dock-icon {
 .alt-page h1 {
   margin: 0 0 18px;
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-size: clamp(2rem, 4vw, 40px);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -2624,7 +2632,7 @@ button.product-demo__dock-icon {
 .alt-page h2 {
   margin: 48px 0 12px;
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-size: 28px;
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -2882,7 +2890,7 @@ button.product-demo__dock-icon {
 .guide h2 {
   margin: 2.4rem 0 0.7rem;
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-size: clamp(1.6rem, 3vw, 2rem);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -3736,7 +3744,7 @@ button.product-demo__dock-icon {
 .wide-page h1,
 .wide-page h2 {
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-weight: 500;
   letter-spacing: -0.02em;
 }
@@ -4478,7 +4486,7 @@ button.product-demo__dock-icon {
 .docs-prose h2,
 .docs-prose h3 {
   color: var(--ink);
-  font-family: Aeonik, Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-weight: 500;
   letter-spacing: -0.02em;
   scroll-margin-top: calc(var(--docs-top) + 24px);
@@ -4505,7 +4513,7 @@ button.product-demo__dock-icon {
 
 .docs-prose h3 {
   margin: 32px 0 8px;
-  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: "Rethink Sans", Arial, sans-serif;
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.01em;

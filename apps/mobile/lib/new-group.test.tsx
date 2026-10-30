@@ -259,7 +259,7 @@ async function pickPair() {
 it("keeps each selected bot's icon set in the name-step group preview", async () => {
   const looks = bots.map((bot, index) => ({
     ...bot,
-    color: index === 0 ? "#10B981" : "#8B5CF6",
+    color: index === 0 ? "#47FF9A" : "#9A4DFF",
     avatarSet: index === 0 ? "rakazo" : "organic",
   }));
   rpc.mockImplementation(async (procedure: string) =>
@@ -270,8 +270,8 @@ it("keeps each selected bot's icon set in the name-step group preview", async ()
   expect(groupPreview).toHaveBeenLastCalledWith(
     expect.objectContaining({
       members: [
-        { botId: "bot-2", color: "#8B5CF6", avatarSet: "organic" },
-        { botId: "bot-1", color: "#10B981", avatarSet: "rakazo" },
+        { botId: "bot-2", color: "#9A4DFF", avatarSet: "organic" },
+        { botId: "bot-1", color: "#47FF9A", avatarSet: "rakazo" },
       ],
     }),
   );

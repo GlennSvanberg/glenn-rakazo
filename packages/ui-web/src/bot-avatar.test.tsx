@@ -15,8 +15,8 @@ describe("BotAvatar", () => {
   it("renders distinct SVG gradient IDs for concurrent working avatars", () => {
     const html = renderToString(
       <div>
-        <BotAvatar color="#8B5CF6::shape_0" status="running" />
-        <BotAvatar color="#10B981::shape_1" status="running" />
+        <BotAvatar color="#9A4DFF::shape_0" status="running" />
+        <BotAvatar color="#47FF9A::shape_1" status="running" />
       </div>,
     );
 
@@ -31,13 +31,13 @@ describe("BotAvatar", () => {
 
   // Button sizes any SVG without a size class, which beats width/height attributes but not inline styles.
   it("sizes the shape with an inline style so icon sizing in a button cannot shrink it", () => {
-    const html = renderToString(<BotAvatar color="#8B5CF6::shape_0" size={26} />);
+    const html = renderToString(<BotAvatar color="#9A4DFF::shape_0" size={26} />);
     const shape = html.match(/<svg[^>]*transition-transform[^>]*>/)?.[0];
     expect(shape).toMatch(/style="[^"]*width:26px;height:26px/);
   });
 
   it.each([...ACTIVE_RUN_STATUSES])("marks active run status %s as working", (status) => {
-    const html = renderToString(<BotAvatar color="#3B82F6" status={status} />);
+    const html = renderToString(<BotAvatar color="#5B2EE0" status={status} />);
     expect(html).toContain("<svg");
     expect(html).toContain('data-working="true"');
   });
@@ -67,7 +67,7 @@ describe("BotAvatar", () => {
   });
 
   it("resolves explicit colors and shapes", () => {
-    expect(resolvePersonaColorDef("bot", "#10B981").hex.toLowerCase()).toBe("#10b981");
+    expect(resolvePersonaColorDef("bot", "#47FF9A").hex.toLowerCase()).toBe("#47ff9a");
     expect(resolvePersonaColorDef("bot", "#fff").hex).toBe("#fff");
     expect(BOT_AVATAR_COLORS.length).toBeGreaterThan(0);
   });
@@ -122,7 +122,7 @@ describe("BotAvatar", () => {
 
   it("honors reduced-motion for the working mascot pulse class", () => {
     const html = renderToString(
-      <BotAvatar color="#8B5CF6::shape_0" identity="maya" size={32} status="running" />,
+      <BotAvatar color="#9A4DFF::shape_0" identity="maya" size={32} status="running" />,
     );
     expect(html).toContain("animate-pulse");
     expect(html).toContain("motion-reduce:animate-none");
@@ -132,7 +132,7 @@ describe("BotAvatar", () => {
     expect(defaultBotAvatarValue(`${DEFAULT_BOT_AVATAR_COLOR}::shape_3`)).toBe(
       DEFAULT_BOT_AVATAR_COLOR,
     );
-    expect(defaultBotAvatarValue("#EAB308::shape_1")).toBe("#EAB308");
+    expect(defaultBotAvatarValue("#C6C200::shape_1")).toBe("#C6C200");
     expect(defaultBotAvatarValue("#abc::shape_2")).toBe("#abc");
     expect(defaultBotAvatarValue("#fff")).toBe("#fff");
     expect(defaultBotAvatarValue("data:image/png;base64,abc")).toBe(DEFAULT_BOT_AVATAR_COLOR);
@@ -156,7 +156,7 @@ describe("BotAvatar", () => {
 
   it("exposes shape picker name and pressed state", () => {
     const html = renderToString(
-      <BotShapePreview shapeIndex={0} color="#8B5CF6" selected onClick={() => undefined} />,
+      <BotShapePreview shapeIndex={0} color="#9A4DFF" selected onClick={() => undefined} />,
     );
     expect(html).toContain('aria-label="hex"');
     expect(html).toContain('aria-pressed="true"');
@@ -165,7 +165,7 @@ describe("BotAvatar", () => {
 
   it("previews an organic body when no studio shape is given", () => {
     const html = renderToString(
-      <BotShapePreview identity="maya" label="Shape 1" color="#8B5CF6" selected={false} />,
+      <BotShapePreview identity="maya" label="Shape 1" color="#9A4DFF" selected={false} />,
     );
     expect(html).toContain('aria-label="Shape 1"');
     expect(html).toContain("rakazo-organic-avatar");

@@ -6,7 +6,7 @@ const bot = {
   name: "Chief",
   description: "Runs the day",
   instructions: "Be brief.",
-  color: "#8B5CF6",
+  color: "#9A4DFF",
   notifyOnFinish: true,
   modelProvider: "anthropic",
   modelId: "claude",
@@ -19,7 +19,7 @@ describe("changedBotSettings", () => {
       changedBotSettings(bot, {
         botId: bot.id,
         name: "Chief",
-        color: "#8B5CF6",
+        color: "#9A4DFF",
         notifyOnFinish: true,
         disabledBuiltinTools: ["web_search"],
       }),

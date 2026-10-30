@@ -8,8 +8,8 @@ import {
 
 describe("persona avatar colors", () => {
   it("keeps Amber Gold on dark eyes instead of a brightness heuristic", () => {
-    expect(resolvePersonaColorDef("preview", "#EAB308").eyeColor).toBe("#141414");
-    expect(resolvePersonaColorDef("preview", "#8B5CF6").eyeColor).toBe("#FFFFFF");
+    expect(resolvePersonaColorDef("preview", "#C6C200").eyeColor).toBe("#00002C");
+    expect(resolvePersonaColorDef("preview", "#9A4DFF").eyeColor).toBe("#FFFFFF");
   });
 });
 
@@ -43,6 +43,6 @@ describe("chatUserBubbleColors", () => {
 
   it("keeps the neutral bubble for a photo or the white bot", () => {
     expect(chatUserBubbleColors("data:image/png;base64,AAAA", "bot-1")).toBeUndefined();
-    expect(chatUserBubbleColors("#FFFFFF", "bot-1")).toBeUndefined();
+    expect(chatUserBubbleColors("#FFFEE8", "bot-1")).toBeUndefined();
   });
 });

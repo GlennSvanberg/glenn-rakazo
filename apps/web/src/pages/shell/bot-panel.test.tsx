@@ -113,7 +113,7 @@ vi.mock("./avatar-studio-popover", () => ({
         aria-label="Avatar set"
         data-avatar-set={avatarSet}
         data-color={value}
-        onClick={() => onChange("#F97316", avatarSet === "rakazo" ? "organic" : "rakazo")}
+        onClick={() => onChange("#F36F16", avatarSet === "rakazo" ? "organic" : "rakazo")}
       />
     </>
   ),
@@ -696,26 +696,26 @@ describe("BotSettings avatar set persistence", () => {
   });
 
   it("saves an explicit set switch atomically with its generated colour and retains it after reload", async () => {
-    await render("Billing", { color: "#10B981" });
+    await render("Billing", { color: "#47FF9A" });
     const control = () => container.querySelector<HTMLButtonElement>('[aria-label="Avatar set"]')!;
     await act(async () => control().click());
-    expect(onSave.mock.lastCall?.[0]).toMatchObject({ avatarSet: "rakazo", color: "#F97316" });
+    expect(onSave.mock.lastCall?.[0]).toMatchObject({ avatarSet: "rakazo", color: "#F36F16" });
     expect(control().getAttribute("data-avatar-set")).toBe("rakazo");
     await act(async () => root.unmount());
     root = createRoot(container);
-    await render("Billing", { color: "#F97316", avatarSet: "rakazo" });
+    await render("Billing", { color: "#F36F16", avatarSet: "rakazo" });
     expect(control().getAttribute("data-avatar-set")).toBe("rakazo");
   });
 
   it("restores the accepted colour and set when switching fails", async () => {
-    await render("Billing", { color: "#10B981" });
+    await render("Billing", { color: "#47FF9A" });
     onSave.mockRejectedValueOnce(new Error("offline"));
     await act(async () =>
       container.querySelector<HTMLButtonElement>('[aria-label="Avatar set"]')!.click(),
     );
     const control = container.querySelector('[aria-label="Avatar set"]')!;
     expect(control.getAttribute("data-avatar-set")).toBe("organic");
-    expect(control.getAttribute("data-color")).toBe("#10B981");
+    expect(control.getAttribute("data-color")).toBe("#47FF9A");
     expect(container.textContent).toContain("offline");
   });
 
