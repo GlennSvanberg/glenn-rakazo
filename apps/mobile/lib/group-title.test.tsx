@@ -33,8 +33,8 @@ vi.mock("./thread-edges", () => ({ threadEdgeOptions: () => ({}) }));
 vi.mock("./user-error", () => ({ errorText: String }));
 
 const members = [
-  { botId: "bot-2", name: "Scout", color: "#3B82F6::shape_1" },
-  { botId: "bot-1", name: "Chief", color: "#F97316::shape_0" },
+  { botId: "bot-2", name: "Scout", color: "#5B2EE0::shape_1" },
+  { botId: "bot-1", name: "Chief", color: "#F36F16::shape_0" },
 ];
 const space = {
   id: "space-1",

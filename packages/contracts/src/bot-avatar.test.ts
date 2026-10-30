@@ -14,10 +14,10 @@ import {
 
 describe("bot avatar values", () => {
   it("parses hex, encoded shapes, and data images", () => {
-    expect(parseBotAvatarValue("#8B5CF6")).toEqual({ kind: "color", color: "#8B5CF6" });
-    expect(parseBotAvatarValue("#8B5CF6::shape_3")).toEqual({
+    expect(parseBotAvatarValue("#9A4DFF")).toEqual({ kind: "color", color: "#9A4DFF" });
+    expect(parseBotAvatarValue("#9A4DFF::shape_3")).toEqual({
       kind: "shape",
-      color: "#8B5CF6",
+      color: "#9A4DFF",
       shapeIndex: 3,
     });
     expect(parseBotAvatarValue("data:image/png;base64,abc")).toEqual({
@@ -36,15 +36,15 @@ describe("bot avatar values", () => {
 
   it("accepts persisted writes and rejects oversized or remote values", () => {
     expect(isBotAvatarValue("#3EC5A8")).toBe(true);
-    expect(isBotAvatarValue("#8B5CF6::shape_0")).toBe(true);
+    expect(isBotAvatarValue("#9A4DFF::shape_0")).toBe(true);
     expect(isBotAvatarValue("data:image/webp;base64,aGVsbG8=")).toBe(true);
-    expect(isBotAvatarValue("#8B5CF6::shape_3junk")).toBe(false);
+    expect(isBotAvatarValue("#9A4DFF::shape_3junk")).toBe(false);
     expect(
       isBotAvatarValue(`data:image/png;base64,${"A".repeat(BOT_AVATAR_VALUE_MAX_LENGTH)}`),
     ).toBe(false);
     expect(BotAvatarValueSchema.safeParse("#fff").success).toBe(true);
     expect(BotAvatarValueSchema.safeParse("not-a-color").success).toBe(false);
-    expect(UpdateBotInput.safeParse({ botId: "bot-1", color: "#8B5CF6::shape_2" }).success).toBe(
+    expect(UpdateBotInput.safeParse({ botId: "bot-1", color: "#9A4DFF::shape_2" }).success).toBe(
       true,
     );
     expect(
@@ -94,7 +94,7 @@ describe("per-bot avatar sets", () => {
       history: [],
     };
     expect(ExportManifestSchema.parse(base).bot.avatarSet).toBeUndefined();
-    for (const color of ["#8B5CF6::shape_3", "data:image/png;base64,aGVsbG8="]) {
+    for (const color of ["#9A4DFF::shape_3", "data:image/png;base64,aGVsbG8="]) {
       const exported = ExportManifestSchema.parse({
         ...base,
         bot: { ...base.bot, avatarSet: "rakazo", color },

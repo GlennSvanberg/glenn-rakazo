@@ -107,8 +107,8 @@ describe("guarded Android Compose switch", () => {
   );
 
   it.each([
-    ["light", "#34C759", "#7676801F", "#F2F2F1", "#6C6C70"],
-    ["dark", "#30D158", "#7676803D", "#EBEBF599", "transparent"],
+    ["light", "#34C759", "#00002C0F", "#E6E4CE", "#6B2BD4"],
+    ["dark", "#30D158", "#FFFEE814", "#FFFEE8B8", "transparent"],
   ] as const)(
     "uses green and neutral colors in %s with a compact host",
     async (scheme, green, track, thumb, border) => {

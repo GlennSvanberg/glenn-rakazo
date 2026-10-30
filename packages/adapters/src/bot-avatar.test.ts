@@ -30,11 +30,11 @@ describe("bot avatar encoding", () => {
   it("resolves hex color writes", async () => {
     await expect(
       resolveUpdateBotAvatar({
-        color: "#8B5CF6::shape_2",
+        color: "#9A4DFF::shape_2",
         sourceImageArtifactIds: [],
         loadArtifact: async () => null,
       }),
-    ).resolves.toEqual({ color: "#8B5CF6::shape_2" });
+    ).resolves.toEqual({ color: "#9A4DFF::shape_2" });
   });
 
   it("rejects remote URLs and missing attached images", async () => {

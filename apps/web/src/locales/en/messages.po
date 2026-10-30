@@ -678,8 +678,8 @@ msgid "Allow once"
 msgstr "Allow once"
 
 #: src/lib/dictation.ts
-msgid "Allow Rakazo to use Speech Recognition and the microphone in System Settings."
-msgstr "Allow Rakazo to use Speech Recognition and the microphone in System Settings."
+msgid "Allow FAIWE Agents to use Speech Recognition and the microphone in System Settings."
+msgstr "Allow FAIWE Agents to use Speech Recognition and the microphone in System Settings."
 
 #: src/components/ApprovalRulePreview.tsx
 msgid "Allow rule"
@@ -730,8 +730,8 @@ msgid "An API key is stored for this provider, not a subscription sign-in."
 msgstr "An API key is stored for this provider, not a subscription sign-in."
 
 #: src/pages/memory-providers/HonchoSettingsForm.tsx
-msgid "An existing Honcho peer to read from. Rakazo never writes to it."
-msgstr "An existing Honcho peer to read from. Rakazo never writes to it."
+msgid "An existing Honcho peer to read from. FAIWE Agents never writes to it."
+msgstr "An existing Honcho peer to read from. FAIWE Agents never writes to it."
 
 #: src/lib/agent-import-errors.ts
 msgid "An imported API key could not be checked. Try again."
@@ -1313,8 +1313,8 @@ msgstr "Choose folder"
 
 #: src/components/ModelCredits.tsx
 #: src/components/SubscriptionGate.tsx
-msgid "Choose how to use Rakazo"
-msgstr "Choose how to use Rakazo"
+msgid "Choose how to use FAIWE Agents"
+msgstr "Choose how to use FAIWE Agents"
 
 #: src/lib/localized-provider-hint.ts
 msgid "Claude subscription"
@@ -1615,8 +1615,8 @@ msgstr "Connect this model's provider first."
 
 #. js-lingui-explicit-id
 #: src/lib/run-error.ts
-msgid "Connect your own API key in Models or choose Rakazo credits in Billing."
-msgstr "Connect your own API key in Models or choose Rakazo credits in Billing."
+msgid "Connect your own API key in Models or choose FAIWE Agents credits in Billing."
+msgstr "Connect your own API key in Models or choose FAIWE Agents credits in Billing."
 
 #: src/components/ComputerDeviceSettings.tsx
 #: src/components/integrations/IntegrationSetup.tsx
@@ -2305,8 +2305,8 @@ msgid "Create space"
 msgstr "Create space"
 
 #: src/pages/Auth.tsx
-msgid "Create your Rakazo"
-msgstr "Create your Rakazo"
+msgid "Create your FAIWE Agents"
+msgstr "Create your FAIWE Agents"
 
 #: src/components/AskCard.tsx
 msgid "Created"
@@ -3169,8 +3169,8 @@ msgid "How to check"
 msgstr "How to check"
 
 #: src/components/SignupSurvey.tsx
-msgid "How will you use Rakazo?"
-msgstr "How will you use Rakazo?"
+msgid "How will you use FAIWE Agents?"
+msgstr "How will you use FAIWE Agents?"
 
 #: src/pages/shell/computer-release-actions.tsx
 msgid "I’m done"
@@ -4116,8 +4116,8 @@ msgid "Not imported"
 msgstr "Not imported"
 
 #: src/pages/shell/import-status.ts
-msgid "Not in Rakazo's catalog"
-msgstr "Not in Rakazo's catalog"
+msgid "Not in FAIWE Agents' catalog"
+msgstr "Not in FAIWE Agents' catalog"
 
 #: src/pages/PluginsOverlay.tsx
 msgid "Not in the plugin catalog"
@@ -4129,12 +4129,12 @@ msgstr "Not now"
 
 #: src/pages/shell/agent-import.tsx
 #: src/pages/shell/import-status.ts
-msgid "Not supported in Rakazo"
-msgstr "Not supported in Rakazo"
+msgid "Not supported in FAIWE Agents"
+msgstr "Not supported in FAIWE Agents"
 
 #: src/pages/shell/agent-import.tsx
-msgid "Not used by Rakazo"
-msgstr "Not used by Rakazo"
+msgid "Not used by FAIWE Agents"
+msgstr "Not used by FAIWE Agents"
 
 #: src/components/McpServerHealthLine.tsx
 msgid "Not working"
@@ -4380,8 +4380,8 @@ msgid "Paste a replacement key"
 msgstr "Paste a replacement key"
 
 #: src/pages/model-settings/compatible-model-fields.tsx
-msgid "Paste the OpenAI-compatible address from your server. Rakazo adds /v1 if needed."
-msgstr "Paste the OpenAI-compatible address from your server. Rakazo adds /v1 if needed."
+msgid "Paste the OpenAI-compatible address from your server. FAIWE Agents adds /v1 if needed."
+msgstr "Paste the OpenAI-compatible address from your server. FAIWE Agents adds /v1 if needed."
 
 #: src/pages/shell/agent-import.tsx
 msgid "Paste the reply"
@@ -4554,17 +4554,17 @@ msgid "Queued"
 msgstr "Queued"
 
 #: src/pages/shell/avatar-studio-popover.tsx
-msgid "Rakazo"
-msgstr "Rakazo"
+msgid "FAIWE Agents"
+msgstr "FAIWE Agents"
 
 #: src/components/ModelCredits.tsx
 #: src/pages/Onboarding.tsx
-msgid "Rakazo credits"
-msgstr "Rakazo credits"
+msgid "FAIWE Agents credits"
+msgstr "FAIWE Agents credits"
 
 #: src/pages/memory-providers/HonchoSettingsForm.tsx
-msgid "rakazo-shared and IDs starting with bot- are reserved for Rakazo."
-msgstr "rakazo-shared and IDs starting with bot- are reserved for Rakazo."
+msgid "rakazo-shared and IDs starting with bot- are reserved for FAIWE Agents."
+msgstr "rakazo-shared and IDs starting with bot- are reserved for FAIWE Agents."
 
 #: src/pages/shell/message-hover-actions.tsx
 msgid "React"
@@ -4961,8 +4961,8 @@ msgstr "Return to call with {0}"
 
 #: src/pages/McpOAuthCallback.tsx
 #: src/pages/SlackInstallCallback.tsx
-msgid "Return to Rakazo"
-msgstr "Return to Rakazo"
+msgid "Return to FAIWE Agents"
+msgstr "Return to FAIWE Agents"
 
 #: src/lib/model-connection-preflight.ts
 msgid "Review provider settings and test again."
@@ -5387,8 +5387,8 @@ msgid "Sign in at <0>{0}</0>, then paste the code here."
 msgstr "Sign in at <0>{0}</0>, then paste the code here."
 
 #: src/pages/Auth.tsx
-msgid "Sign in to Rakazo"
-msgstr "Sign in to Rakazo"
+msgid "Sign in to FAIWE Agents"
+msgstr "Sign in to FAIWE Agents"
 
 #: src/lib/user-error.ts
 msgid "Sign in to your existing account to link SSO"
@@ -5632,8 +5632,8 @@ msgid "Subscribe for {price} / month"
 msgstr "Subscribe for {price} / month"
 
 #: src/components/ModelCredits.tsx
-msgid "Subscribe to Rakazo credits"
-msgstr "Subscribe to Rakazo credits"
+msgid "Subscribe to FAIWE Agents credits"
+msgstr "Subscribe to FAIWE Agents credits"
 
 #: src/components/ModelCredits.tsx
 msgid "Subscribe with your own AI"
@@ -5931,8 +5931,8 @@ msgid "This server is already connected. Disconnect it first to authorize again.
 msgstr "This server is already connected. Disconnect it first to authorize again."
 
 #: src/pages/model-settings/connection-controls.tsx
-msgid "This subscription sign-in is not available in Rakazo yet. Use a deployment credential or choose another provider."
-msgstr "This subscription sign-in is not available in Rakazo yet. Use a deployment credential or choose another provider."
+msgid "This subscription sign-in is not available in FAIWE Agents yet. Use a deployment credential or choose another provider."
+msgstr "This subscription sign-in is not available in FAIWE Agents yet. Use a deployment credential or choose another provider."
 
 #: src/pages/Artifacts.tsx
 msgid "This week"
@@ -6223,8 +6223,8 @@ msgid "Use Protected input for passwords."
 msgstr "Use Protected input for passwords."
 
 #: src/components/ModelCredits.tsx
-msgid "Use Rakazo credits"
-msgstr "Use Rakazo credits"
+msgid "Use FAIWE Agents credits"
+msgstr "Use FAIWE Agents credits"
 
 #: src/pages/model-settings/space-bots-model.tsx
 msgid "Use space default"
@@ -6356,8 +6356,8 @@ msgid "Weekends"
 msgstr "Weekends"
 
 #: src/components/SignupSurvey.tsx
-msgid "Welcome to Rakazo"
-msgstr "Welcome to Rakazo"
+msgid "Welcome to FAIWE Agents"
+msgstr "Welcome to FAIWE Agents"
 
 #: src/pages/shell/dialogs.tsx
 msgid "What about its memories?"
@@ -6368,8 +6368,8 @@ msgid "What can this space use?"
 msgstr "What can this space use?"
 
 #: src/components/SignupSurvey.tsx
-msgid "What do you most want Rakazo to help with?"
-msgstr "What do you most want Rakazo to help with?"
+msgid "What do you most want FAIWE Agents to help with?"
+msgstr "What do you most want FAIWE Agents to help with?"
 
 #: src/pages/shell/message-cards.tsx
 msgid "What do you want me on first?"

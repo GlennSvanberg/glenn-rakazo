@@ -1412,7 +1412,7 @@ export const builtinAgentTools: ConnectorTool[] = [
         color: {
           type: "string",
           description:
-            "Avatar color or encoded shape, e.g. #8B5CF6 or #8B5CF6::shape_3. Do not pass http URLs.",
+            "Avatar color or encoded shape, e.g. #9A4DFF or #9A4DFF::shape_3. Do not pass http URLs.",
         },
         artifact_id: {
           type: "string",

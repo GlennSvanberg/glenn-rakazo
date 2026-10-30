@@ -9,7 +9,7 @@ import { defaultTrigger, describeTrigger, displayRoutineWhen, parseWhen, resolve
 
 type DemoTranslator = (source: string, values?: Record<string, string | number>) => string;
 
-const BOT_COLORS = ["#3EC5A8", "#F5A03C", "#6A6BF5", "#9B5CF6", "#3B82F6", "#F2622A", "#D9508A"];
+const BOT_COLORS = ["#3EC5A8", "#F5A03C", "#6A6BF5", "#9B5CF6", "#5B2EE0", "#F2622A", "#D9508A"];
 const FREQS = [
   "Every hour",
   "Every day",

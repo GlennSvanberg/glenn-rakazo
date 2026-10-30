@@ -19,12 +19,12 @@ export function welcomeEmail(
 ): Promise<TransactionalEmail> {
   return message(
     user.email,
-    "Welcome to Rakazo",
+    "Welcome to FAIWE Agents",
     <>
       <Text>Hi {displayName(user.name, "there")},</Text>
-      <Text>Thanks for signing up for Rakazo.</Text>
+      <Text>Thanks for signing up for FAIWE Agents.</Text>
       <Text>
-        Rakazo also has apps for{" "}
+        FAIWE Agents also has apps for{" "}
         {APPS.map(([name, href], index) => (
           <span key={name}>
             {index === APPS.length - 1 ? "and " : ""}
@@ -43,7 +43,7 @@ export function welcomeEmail(
         .
       </Text>
       <Text>
-        Rakazo is open source. If you like it,{" "}
+        FAIWE Agents is open source. If you like it,{" "}
         <Link href="https://github.com/elie222/rakazo" style={linkStyle}>
           a star on GitHub
         </Link>{" "}
@@ -55,7 +55,7 @@ export function welcomeEmail(
           href="https://github.com/elie222/rakazo/blob/main/docs/self-host.md"
           style={linkStyle}
         >
-          Self-host Rakazo
+          Self-host FAIWE Agents
         </Link>
         .
       </Text>

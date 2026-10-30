@@ -435,7 +435,7 @@ function OrganicAvatar({
   life: AvatarLife;
   bodyStyle: BodyStyle;
 }) {
-  const seed = avatarIdentitySeed(identity || color || "#8B5CF6");
+  const seed = avatarIdentitySeed(identity || color || "#9A4DFF");
   // Offsets are in motion units, scaled to this 120-unit box; eyes close about their centre.
   const eyeProps = (x: number) => () => {
     "worklet";

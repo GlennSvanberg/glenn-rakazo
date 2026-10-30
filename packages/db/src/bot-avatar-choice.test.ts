@@ -75,7 +75,7 @@ describe("chooseBotAvatar", () => {
     });
   });
 
-  it.each(["#123456", "#abc", "#8B5CF6::shape_3", "data:image/png;base64,aGVsbG8="])(
+  it.each(["#123456", "#abc", "#9A4DFF::shape_3", "data:image/png;base64,aGVsbG8="])(
     "keeps explicit Rakazo appearance %s",
     (color) => {
       expect(
@@ -116,16 +116,16 @@ describe("chooseBotAvatar", () => {
     // already on a round bot.
     const [round] = idsForFamilies([2]);
     const others = idsForFamilies([0, 1, 3, 4, 5, 6, 7, 9, 0, 1, 3, 4, 5, 6, 7, 9]);
-    const spread = ["#3EC5A8", "#6A6BF5", "#9B5CF6", "#F2622A", "#D9508A"];
+    const spread = ["#9A4DFF", "#1FFFF8", "#E788CE", "#C6C200", "#47FF9A"];
     const existing = [
-      { id: round!, color: "#F5A03C" },
-      { id: others[0]!, color: "#3B82F6" },
+      { id: round!, color: "#F36F16" },
+      { id: others[0]!, color: "#5B2EE0" },
       ...others.slice(1).map((id, index) => ({ id, color: spread[index % spread.length]! })),
     ];
     for (let seed = 1; seed <= 20; seed++) {
       const chosen = chooseBotAvatar(existing, undefined, { random: seeded(seed), now: 0 });
       expect(organicAvatarLook(organicAvatarFamily(chosen.id))).toBe(2);
-      expect(chosen.color).toBe("#3B82F6");
+      expect(chosen.color).toBe("#5B2EE0");
     }
   });
 
@@ -154,10 +154,10 @@ describe("chooseBotAvatar", () => {
     const existing = idsForFamilies([3, 3, 3]).map((id) => ({ id, color: "#3EC5A8" }));
     for (let family = 0; family < ORGANIC_AVATAR_FAMILY_COUNT; family++) {
       for (let seed = 1; seed <= 5; seed++) {
-        const chosen = chooseBotAvatar(existing, "#8B5CF6", { random: seeded(seed), family });
+        const chosen = chooseBotAvatar(existing, "#9A4DFF", { random: seeded(seed), family });
         expect(organicAvatarFamily(chosen.id)).toBe(family);
         expect(chosen.id).toMatch(/^c[a-z0-9]{24}$/);
-        expect(chosen.color).toBe("#8B5CF6");
+        expect(chosen.color).toBe("#9A4DFF");
       }
     }
     expect(organicAvatarFamily(chooseBotAvatar(existing, undefined, { family: 3 }).id)).toBe(3);

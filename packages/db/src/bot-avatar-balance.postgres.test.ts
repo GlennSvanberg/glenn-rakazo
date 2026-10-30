@@ -119,7 +119,7 @@ describePostgres("new bot avatars (PostgreSQL)", () => {
     );
     expect(created.avatarSet).toBe("organic");
     expect(BOT_COLORS).toContain(created.color);
-    for (const color of ["#8B5CF6", "#8B5CF6::shape_3", "data:image/png;base64,aGVsbG8="]) {
+    for (const color of ["#9A4DFF", "#9A4DFF::shape_3", "data:image/png;base64,aGVsbG8="]) {
       const original = await runAsTenant(owner, () =>
         repos.createBot(actor(), { ...botInput("Original look"), avatarSet: "organic", color }),
       );

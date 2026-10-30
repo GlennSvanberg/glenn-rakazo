@@ -120,9 +120,11 @@ function Study() {
     <main className="mx-auto max-w-[1260px] p-8 text-foreground" data-rerenders={rerenders}>
       <header className="mb-7 flex items-center justify-between gap-5 border-b border-border pb-6">
         <div className="flex items-center gap-4">
-          <img src={officialMark} alt="Official Rakazo logo" className="size-14 rounded-xl" />
+          <img src={officialMark} alt="Official FAIWE Agents logo" className="size-14 rounded-xl" />
           <div>
-            <p className="mb-1 text-label text-muted-foreground">RAKAZO · LOGO AVATAR STUDY</p>
+            <p className="mb-1 text-label text-muted-foreground">
+              FAIWE AGENTS · LOGO AVATAR STUDY
+            </p>
             <h1 className="text-heading2 font-semibold">Different colours. Their own rhythm.</h1>
           </div>
         </div>
@@ -359,7 +361,7 @@ function Study() {
         </div>
         <div className="flex items-center gap-2">
           <BotAvatar color={portrait} avatarSet="rakazo" size={38} />
-          <BotAvatar color="#8B5CF6::shape_3" avatarSet="rakazo" size={38} />
+          <BotAvatar color="#9A4DFF::shape_3" avatarSet="rakazo" size={38} />
           <span className="text-caption text-muted-foreground">
             Custom avatars
             <br />
@@ -517,7 +519,7 @@ function SeededFleet() {
       <main className="mx-auto max-w-[1140px] p-6 text-foreground" data-renders={renders}>
         <header className="mb-6 flex items-center justify-between gap-4">
           <div>
-            <h1 className="text-heading2 font-semibold">Seeded Rakazo colours</h1>
+            <h1 className="text-heading2 font-semibold">Seeded FAIWE Agents colours</h1>
             <p className="mt-1 text-label text-muted-foreground">
               {compact
                 ? "Live status fallback · compact list"

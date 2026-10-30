@@ -73,20 +73,20 @@ async function render(value: string, avatarSet?: BotAvatarSet, key = "initial") 
 }
 
 describe("selectable bot icon sets", () => {
-  it("keeps a legacy appearance on open, saves a Rakazo switch, and restores the saved set on reload", async () => {
-    await render("#10B981");
+  it("keeps a legacy appearance on open, saves a FAIWE Agents switch, and restores the saved set on reload", async () => {
+    await render("#47FF9A");
     await click("Customize bot avatar");
     expect(button("Original").getAttribute("aria-selected")).toBe("true");
     expect(document.querySelector(".rakazo-organic-avatar")).not.toBeNull();
     expect(changed).not.toHaveBeenCalled();
-    await click("Rakazo");
-    expect(changed).toHaveBeenLastCalledWith("#10B981", "rakazo");
+    await click("FAIWE Agents");
+    expect(changed).toHaveBeenLastCalledWith("#47FF9A", "rakazo");
     expect(document.querySelector(".rakazo-logo-avatar")).not.toBeNull();
-    await render("#10B981", "rakazo", "reload");
+    await render("#47FF9A", "rakazo", "reload");
     await click("Customize bot avatar");
-    expect(button("Rakazo").getAttribute("aria-selected")).toBe("true");
+    expect(button("FAIWE Agents").getAttribute("aria-selected")).toBe("true");
     await click("Original");
-    expect(changed).toHaveBeenLastCalledWith("#10B981", "organic");
+    expect(changed).toHaveBeenLastCalledWith("#47FF9A", "organic");
     expect(document.querySelector(".rakazo-organic-avatar")).not.toBeNull();
     expect(button("wedge")).toBeDefined();
   });
@@ -98,19 +98,19 @@ describe("selectable bot icon sets", () => {
     await click("Customize bot avatar");
     expect(changed).not.toHaveBeenCalled();
     expect(document.querySelector(`img[src="${photo}"]`)).not.toBeNull();
-    await click("Rakazo");
+    await click("FAIWE Agents");
     expect(changed).toHaveBeenLastCalledWith(DEFAULT_BOT_AVATAR_COLOR, "rakazo");
     expect(document.querySelector(`img[src="${photo}"]`)).toBeNull();
   });
 
   it("keeps explicit original shapes and their chosen set while changing colour", async () => {
-    await render("#8B5CF6::shape_2", "organic");
+    await render("#9A4DFF::shape_2", "organic");
     await click("Customize bot avatar");
     expect(changed).not.toHaveBeenCalled();
-    await click("Color #10B981");
-    expect(changed).toHaveBeenLastCalledWith("#10B981::shape_2", undefined);
+    await click("Color #47FF9A");
+    expect(changed).toHaveBeenLastCalledWith("#47FF9A::shape_2", undefined);
     expect(button("Original").getAttribute("aria-selected")).toBe("true");
-    await click("Rakazo");
-    expect(changed).toHaveBeenLastCalledWith("#10B981", "rakazo");
+    await click("FAIWE Agents");
+    expect(changed).toHaveBeenLastCalledWith("#47FF9A", "rakazo");
   });
 });

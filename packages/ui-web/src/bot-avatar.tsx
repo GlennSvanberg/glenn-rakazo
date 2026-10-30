@@ -45,11 +45,11 @@ export function parseBotAvatar(
   isImage: boolean;
   imageUrl?: string;
 } {
-  if (!rawColor) return { color: "#F97316", isImage: false };
+  if (!rawColor) return { color: "#F36F16", isImage: false };
   // Only data: image URLs are rendered. Arbitrary http(s)/blob values in `color`
   // must not become <img src> (SSRF / tracking when other members view the bot).
   if (rawColor.startsWith("data:image/")) {
-    return { color: "#F97316", isImage: true, imageUrl: rawColor };
+    return { color: "#F36F16", isImage: true, imageUrl: rawColor };
   }
   if (rawColor.includes("::shape_")) {
     const parts = rawColor.split("::shape_");
@@ -57,7 +57,7 @@ export function parseBotAvatar(
     const parsedShapeIdx = /^\d+$/.test(rawShapeIdx) ? Number(rawShapeIdx) : 0;
     const shapeIdx = Number.isSafeInteger(parsedShapeIdx) ? parsedShapeIdx : 0;
     return {
-      color: parts[0] || "#F97316",
+      color: parts[0] || "#F36F16",
       shapeIndex: shapeIdx % SHIPPED_SHAPE_KEYS.length,
       isImage: false,
     };
@@ -243,7 +243,7 @@ export const BotAvatar = memo(function BotAvatar({
   );
 });
 
-/** Only live Rakazo consumers subscribe to public activity updates. */
+/** Only live FAIWE Agents consumers subscribe to public activity updates. */
 function LiveLogoAvatar({
   status,
   ...props
@@ -396,13 +396,9 @@ export function BotShapePreview({
 export function Wordmark({ className }: { className?: string }) {
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      <div className="flex h-11 w-11 items-center justify-center gap-1.5 rounded-full bg-card">
-        <span className="h-4 w-[7px] rounded-full bg-primary" />
-        <span className="h-4 w-[7px] rounded-full bg-primary" />
-      </div>
-      <span className="font-[Aeonik,ui-sans-serif] text-[28px] tracking-tight text-foreground">
-        Rakazo
-      </span>
+      <img src="/brand/fiwe-wordmark-black.svg" alt="" className="h-7 w-auto dark:hidden" />
+      <img src="/brand/fiwe-wordmark-vanilla.svg" alt="" className="hidden h-7 w-auto dark:block" />
+      <span className="text-[28px] font-bold tracking-tight text-foreground">FAIWE Agents</span>
     </div>
   );
 }

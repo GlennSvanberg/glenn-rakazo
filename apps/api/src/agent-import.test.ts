@@ -241,11 +241,11 @@ describe("portable avatar appearance on import", () => {
       });
       await createImportedBot(services({ createBot }), actor, {
         ...input,
-        color: "#8B5CF6::shape_3",
+        color: "#9A4DFF::shape_3",
         avatarSet,
       });
       expect(createBot.mock.calls[0]![1]).toMatchObject({
-        color: "#8B5CF6::shape_3",
+        color: "#9A4DFF::shape_3",
         avatarSet: avatarSet ?? "organic",
       });
     },

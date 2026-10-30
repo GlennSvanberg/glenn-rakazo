@@ -73,7 +73,7 @@ describe("stable logo avatar traits", () => {
       ...second
     } = logoAvatarTraits("bot-1", "blue");
     expect(first).toEqual(second);
-    expect(logoAvatarTraits("bot-1", "blue").color).toBe("#3B82F6");
+    expect(logoAvatarTraits("bot-1", "blue").color).toBe("#5B2EE0");
     expect(logoAvatarTraits("bot-1", "#abc").color).toBe("#abc");
   });
 });
