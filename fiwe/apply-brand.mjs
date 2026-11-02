@@ -577,7 +577,10 @@ function formatSnapshot(name, values, indent) {
 function replaceBlock(source, name, replacement) {
   const marker = `const ${name} = {`;
   const start = source.indexOf(marker);
-  if (start < 0) throw new Error(`Missing snapshot ${name}`);
+  if (start < 0) {
+    console.warn(`fiwe: snapshot ${name} is gone; tests read the live tokens`);
+    return source;
+  }
   const brace = source.indexOf("{", start);
   let depth = 0;
   let end = brace;
