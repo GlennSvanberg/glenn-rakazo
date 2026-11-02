@@ -3,8 +3,8 @@ import appMark from "../assets/monochrome-icon.png";
 import { native, useThemedStyles } from "../lib/native";
 
 const MARK = 56;
-// The face of the 1024 px monochrome icon: a 480 px circle inside the silhouette, eyes included.
-const CROP = { x: 272, y: 303, size: 480 };
+// Fiwe mark bounds inside the 1024 px monochrome icon.
+const CROP = { x: 208, y: 208, size: 608 };
 const SCALE = MARK / CROP.size;
 
 export function AppMark() {

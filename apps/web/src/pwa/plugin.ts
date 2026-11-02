@@ -1,6 +1,5 @@
 import { fileURLToPath } from "node:url";
 import { isBuildId } from "@rakazo/contracts/client-build";
-import { webDarkTokens } from "@rakazo/ui-tokens";
 import type { Plugin, Rolldown } from "vite";
 import { CACHE_PREFIX } from "./service-worker.js";
 
@@ -23,12 +22,16 @@ export function webManifest() {
     start_url: "/",
     scope: "/",
     display: "standalone",
-    background_color: webDarkTokens.background,
-    theme_color: webDarkTokens.background,
-    // The icons are full-bleed, so the same art also works under a launcher mask.
+    background_color: "#0B0F1A",
+    theme_color: "#0B0F1A",
     icons: [
       ...icons.map((icon) => ({ ...icon, purpose: "any" })),
-      ...icons.map((icon) => ({ ...icon, purpose: "maskable" })),
+      ...[192, 512].map((size) => ({
+        src: `/icon-maskable-${size}.png`,
+        sizes: `${size}x${size}`,
+        type: "image/png",
+        purpose: "maskable",
+      })),
     ],
   };
 }
