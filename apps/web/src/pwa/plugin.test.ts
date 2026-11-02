@@ -1,4 +1,3 @@
-import { webDarkTokens } from "@rakazo/ui-tokens";
 import type { Rolldown } from "vite";
 import { describe, expect, it } from "vitest";
 import { injectShell, shellFiles, webManifest } from "./plugin.js";
@@ -43,16 +42,22 @@ describe("PWA build", () => {
     expect(() => injectShell("install(self)", [], "20261023113220")).toThrow();
   });
 
-  it("takes the manifest colors from the shared tokens", () => {
+  it("sets the install icon plate and a separate maskable icon", () => {
     const manifest = webManifest();
     expect(manifest).toMatchObject({
       id: "/",
       scope: "/",
       start_url: "/",
       display: "standalone",
-      background_color: webDarkTokens.background,
-      theme_color: webDarkTokens.background,
+      background_color: "#0B0F1A",
+      theme_color: "#0B0F1A",
     });
-    expect(manifest.icons.filter((icon) => icon.purpose === "maskable")).toHaveLength(2);
+    expect(manifest.icons.filter((icon) => icon.purpose === "maskable")).toEqual([
+      expect.objectContaining({ src: "/icon-maskable-192.png", sizes: "192x192" }),
+      expect.objectContaining({ src: "/icon-maskable-512.png", sizes: "512x512" }),
+    ]);
+    expect(manifest.icons.filter((icon) => icon.purpose === "any").map((icon) => icon.src)).toEqual(
+      ["/icon-192.png", "/icon-512.png"],
+    );
   });
 });

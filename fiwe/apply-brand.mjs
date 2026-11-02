@@ -26,6 +26,9 @@ const appliedPath = join(fiweDir, ".applied-product-name");
 const previousName = existsSync(appliedPath) ? readFileSync(appliedPath, "utf8").trim() : "";
 
 const midnight = "#00002C";
+/** Icon plate. Manifest theme and background use this, separate from the app canvas. */
+const iconPlate = "#0B0F1A";
+const iconPlateRgb = { r: 0x0b, g: 0x0f, b: 0x1a };
 const vanilla = "#FFFEE8";
 const purple = "#9A4DFF";
 const pink = "#E788CE";
@@ -980,82 +983,92 @@ function copyWordmarks() {
   }
 }
 
-function symbolSvg(fill) {
-  const source = readFileSync(join(fiweDir, "assets/wordmarks/fiwe-wordmark-black.svg"), "utf8");
-  const paths = [...source.matchAll(/<path\b[^>]*\bd="([^"]+)"/g)]
-    .slice(0, 2)
-    .map((match) => match[1]);
-  if (paths.length !== 2) throw new Error("Could not crop the F-mark from the wordmark");
-  const body = paths.map((d) => `<path fill="${fill}" d="${d}"/>`).join("");
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.63 11.57" fill="${fill}">
-  ${body}
-</svg>`;
-}
-
 async function loadSharp() {
   const require = createRequire(join(root, "packages/ui-tokens/package.json"));
   return require("sharp");
 }
 
-async function renderIcons() {
-  const sharp = await loadSharp();
-  const scale = 80;
-  const width = Math.ceil(51.63 * scale);
-  const height = Math.ceil(11.57 * scale);
-  const rendered = await sharp(Buffer.from(symbolSvg(vanilla)))
-    .resize(width, height)
+function readIconSvg(name) {
+  const rel = join(fiweDir, "assets", name);
+  if (!existsSync(rel)) throw new Error(`Missing fiwe/assets/${name}`);
+  return readFileSync(rel);
+}
+
+/** Rasterize a 64-unit icon SVG at `size` pixels. Density is high enough that sharp does not upscale. */
+async function rasterIcon(sharp, svg, size) {
+  const density = Math.ceil((size / 64) * 72);
+  return sharp(Buffer.from(svg), { density })
+    .resize(size, size, { fit: "fill" })
     .ensureAlpha()
     .png()
     .toBuffer();
-  const trimmed = await sharp(rendered).trim().png().toBuffer({ resolveWithObject: true });
-  const mark = trimmed.data;
-  const info = trimmed.info;
-  const viewX = -(info.trimOffsetLeft ?? 0) / scale;
-  const viewY = -(info.trimOffsetTop ?? 0) / scale;
-  const viewW = info.width / scale;
-  const viewH = info.height / scale;
-  const pad = Math.max(viewW, viewH) * 0.18;
-  const side = Math.max(viewW, viewH) + pad * 2;
-  const originX = viewX - (side - viewW) / 2;
-  const originY = viewY - (side - viewH) / 2;
-  const faviconSvg = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="${originX} ${originY} ${side} ${side}">
-  <rect x="${originX}" y="${originY}" width="${side}" height="${side}" fill="${midnight}"/>
-  ${symbolSvg(vanilla)
-    .replace(/^<\?xml[\s\S]*?<svg[^>]*>/, "")
-    .replace(/<\/svg>\s*$/, "")}
-</svg>`;
-  for (const rel of ["apps/web/public/favicon.svg", "apps/www/public/favicon.svg"]) {
-    write(rel, faviconSvg);
-  }
+}
 
-  async function plate(background, paddingRatio) {
-    const canvas = 1024;
-    const inner = Math.round(canvas * (1 - paddingRatio * 2));
-    const fitted = await sharp(mark)
-      .resize({ width: inner, height: inner, fit: "inside" })
-      .png()
-      .toBuffer();
-    const fittedMeta = await sharp(fitted).metadata();
-    const left = Math.round((canvas - fittedMeta.width) / 2);
-    const top = Math.round((canvas - fittedMeta.height) / 2);
-    let image = sharp({
-      create: { width: canvas, height: canvas, channels: 4, background },
-    }).composite([{ input: fitted, left, top }]);
-    if (!background) image = image.ensureAlpha();
-    return image.png().toBuffer();
-  }
-
-  const square = await plate(midnight, 0.16);
-  const transparent = await plate({ r: 0, g: 0, b: 0, alpha: 0 }, 0.16);
-  const mask = Buffer.from(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024"><rect width="1024" height="1024" rx="200" fill="white"/></svg>',
-  );
-  const rounded = await sharp(square)
-    .composite([{ input: mask, blend: "dest-in" }])
+async function flattenOnPlate(sharp, png, size) {
+  return sharp({
+    create: { width: size, height: size, channels: 4, background: iconPlate },
+  })
+    .composite([{ input: png, left: 0, top: 0 }])
     .png()
     .toBuffer();
+}
+
+/**
+ * Alpha of the brain against the icon plate. The approved SVG paints the mark
+ * with partial opacity, so the plate shows through; distance from that plate is the silhouette.
+ */
+async function plateDistanceAlpha(sharp, png) {
+  const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const count = info.width * info.height;
+  const deltas = new Float32Array(count);
+  let peak = 1;
+  for (let i = 0, p = 0; i < data.length; i += 4, p += 1) {
+    const delta = Math.max(
+      Math.abs(data[i] - iconPlateRgb.r),
+      Math.abs(data[i + 1] - iconPlateRgb.g),
+      Math.abs(data[i + 2] - iconPlateRgb.b),
+    );
+    deltas[p] = delta;
+    if (delta > peak) peak = delta;
+  }
+  // The plate and its antialiased rim sit near the plate color. The brain is far from it.
+  const floor = 32;
+  const alpha = Buffer.alloc(count);
+  const rgb = Buffer.alloc(count * 4);
+  const span = Math.max(1, peak - floor);
+  for (let p = 0; p < count; p += 1) {
+    const a = deltas[p] <= floor ? 0 : Math.round(((deltas[p] - floor) / span) * 255);
+    alpha[p] = a;
+    const i = p * 4;
+    rgb[i] = data[i];
+    rgb[i + 1] = data[i + 1];
+    rgb[i + 2] = data[i + 2];
+    rgb[i + 3] = a;
+  }
+  return { alpha, colored: rgb, width: info.width, height: info.height };
+}
+
+async function renderIcons() {
+  const sharp = await loadSharp();
+  const iconSvg = readIconSvg("icon.svg");
+  const maskableSvg = readIconSvg("icon-maskable.svg");
+  const master = 1024;
+  const icon = await rasterIcon(sharp, iconSvg, master);
+  const maskable = await rasterIcon(sharp, maskableSvg, master);
+  const opaque = await flattenOnPlate(sharp, icon, master);
+  const { alpha, colored, width, height } = await plateDistanceAlpha(sharp, icon);
+  const white = Buffer.alloc(width * height * 3, 255);
+  const mono = await sharp(white, { raw: { width, height, channels: 3 } })
+    .joinChannel(alpha, { raw: { width, height, channels: 1 } })
+    .png()
+    .toBuffer();
+  const brain = await sharp(colored, { raw: { width, height, channels: 4 } })
+    .png()
+    .toBuffer();
+
+  for (const rel of ["apps/web/public/favicon.svg", "apps/www/public/favicon.svg"]) {
+    write(rel, iconSvg.toString("utf8"));
+  }
 
   async function png(input, rel, size) {
     const dest = join(root, rel);
@@ -1085,32 +1098,33 @@ async function renderIcons() {
 
   for (const app of ["web", "www"]) {
     const publicDir = `apps/${app}/public`;
-    await png(rounded, `${publicDir}/favicon-16x16.png`, 16);
-    await png(rounded, `${publicDir}/favicon-32x32.png`, 32);
-    await png(rounded, `${publicDir}/favicon.png`, 128);
-    await png(square, `${publicDir}/apple-touch-icon.png`, 180);
-    await png(square, `${publicDir}/icon-192.png`, 192);
-    await png(square, `${publicDir}/icon-512.png`, 512);
-    await ico(rounded, `${publicDir}/favicon.ico`, [16, 32, 48]);
+    await png(icon, `${publicDir}/favicon-16x16.png`, 16);
+    await png(icon, `${publicDir}/favicon-32x32.png`, 32);
+    await png(icon, `${publicDir}/favicon-48x48.png`, 48);
+    await png(icon, `${publicDir}/favicon.png`, 128);
+    await png(opaque, `${publicDir}/apple-touch-icon.png`, 180);
+    await png(icon, `${publicDir}/icon-192.png`, 192);
+    await png(icon, `${publicDir}/icon-512.png`, 512);
+    await png(maskable, `${publicDir}/icon-maskable-192.png`, 192);
+    await png(maskable, `${publicDir}/icon-maskable-512.png`, 512);
+    await ico(icon, `${publicDir}/favicon.ico`, [16, 32, 48, 256]);
   }
   mkdirSync(join(root, "apps/www/public/brand"), { recursive: true });
-  await png(square, "apps/www/public/brand/rakazo-mark.png", 256);
-  await png(rounded, "apps/mobile/assets/favicon.png", 128);
-  await png(square, "apps/desktop/assets/icon.png", 1024);
-  await png(square, "apps/desktop/assets/icon-macos.png", 1024);
-  await ico(rounded, "apps/desktop/assets/icon.ico", [16, 32, 48, 64, 128, 256]);
-  await png(square, "apps/mobile/assets/icon.png", 1024);
-  await png(square, "apps/mobile/assets/icon-background.png", 1024);
-  await png(transparent, "apps/mobile/assets/adaptive-icon.png", 1024);
-  const whiteMark = await sharp(Buffer.from(symbolSvg("#FFFFFF")))
-    .resize(width, height)
-    .ensureAlpha()
-    .trim()
+  await png(icon, "apps/www/public/brand/rakazo-mark.png", 256);
+  await png(icon, "apps/mobile/assets/favicon.png", 128);
+  await png(opaque, "apps/desktop/assets/icon.png", 1024);
+  await png(opaque, "apps/desktop/assets/icon-macos.png", 1024);
+  await ico(icon, "apps/desktop/assets/icon.ico", [16, 32, 48, 64, 128, 256]);
+  await png(opaque, "apps/mobile/assets/icon.png", 1024);
+  const plate = await sharp({
+    create: { width: master, height: master, channels: 4, background: iconPlate },
+  })
     .png()
     .toBuffer();
-  const mono = await plateFrom(sharp, whiteMark, { r: 0, g: 0, b: 0, alpha: 0 }, 0.16);
+  await png(plate, "apps/mobile/assets/icon-background.png", 1024);
+  await png(maskable, "apps/mobile/assets/adaptive-icon.png", 1024);
   await png(mono, "apps/mobile/assets/monochrome-icon.png", 1024);
-  await png(mono, "packages/ui-tokens/assets/Rakazo.icon/Assets/orange-bot.png", 1024);
+  await png(opaque, "packages/ui-tokens/assets/Rakazo.icon/Assets/orange-bot.png", 1024);
   const silhouette = await sharp(mono).resize(72, 72).extractChannel("alpha").toBuffer();
   const notification = await sharp({
     create: { width: 72, height: 72, channels: 3, background: "white" },
@@ -1119,34 +1133,115 @@ async function renderIcons() {
     .png()
     .toBuffer();
   writeFileSync(join(root, "apps/mobile/assets/notification-icon.png"), notification);
-  const splashMark = await plateFrom(sharp, mark, { r: 0, g: 0, b: 0, alpha: 0 }, 0.22);
-  await sharp(splashMark)
+  await sharp(brain)
     .resize(620, 620)
     .extend({ top: 202, bottom: 202, left: 202, right: 202, background: "transparent" })
     .png()
     .toFile(join(root, "apps/mobile/assets/splash-icon.png"));
 }
 
-async function plateFrom(sharp, mark, background, paddingRatio) {
-  const canvas = 1024;
-  const inner = Math.round(canvas * (1 - paddingRatio * 2));
-  const fitted = await sharp(mark)
-    .resize({ width: inner, height: inner, fit: "inside" })
-    .png()
-    .toBuffer();
-  const fittedMeta = await sharp(fitted).metadata();
-  const left = Math.round((canvas - fittedMeta.width) / 2);
-  const top = Math.round((canvas - fittedMeta.height) / 2);
-  return sharp({
-    create: { width: canvas, height: canvas, channels: 4, background },
-  })
-    .composite([{ input: fitted, left, top }])
-    .png()
-    .toBuffer();
+const maskableIconEntries = `[192, 512].map((size) => ({
+        src: \`/icon-maskable-\${size}.png\`,
+        sizes: \`\${size}x\${size}\`,
+        type: "image/png",
+        purpose: "maskable",
+      }))`;
+
+function patchPwaPlugin(source) {
+  let next = source.replace('import { webDarkTokens } from "@rakazo/ui-tokens";\n', "");
+  next = next.replace(
+    /background_color: (?:webDarkTokens\.background|"#0B0F1A"),\n(\s*)theme_color: (?:webDarkTokens\.background|"#0B0F1A"),/,
+    `background_color: "${iconPlate}",\n$1theme_color: "${iconPlate}",`,
+  );
+  const icons = `icons: [
+      ...icons.map((icon) => ({ ...icon, purpose: "any" })),
+      ...${maskableIconEntries},
+    ],`;
+  next = next.replace(
+    /\/\/ The icons are full-bleed, so the same art also works under a launcher mask\.\n\s*icons: \[[\s\S]*?\n\s*\],/,
+    icons,
+  );
+  if (!next.includes('background_color: "#0B0F1A"')) {
+    console.warn("fiwe: PWA manifest colors were not updated");
+  }
+  if (!next.includes("/icon-maskable-")) {
+    console.warn("fiwe: PWA maskable icons were not updated");
+  }
+  return next;
+}
+
+function patchPwaTest(source) {
+  let next = source.replace('import { webDarkTokens } from "@rakazo/ui-tokens";\n', "");
+  next = next.replace(
+    'it("takes the manifest colors from the shared tokens", () => {',
+    'it("sets the install icon plate and a separate maskable icon", () => {',
+  );
+  next = next.replace(
+    /background_color: (?:webDarkTokens\.background|"#0B0F1A"),\n(\s*)theme_color: (?:webDarkTokens\.background|"#0B0F1A"),/,
+    `background_color: "${iconPlate}",\n$1theme_color: "${iconPlate}",`,
+  );
+  const assertion = `expect(manifest.icons.filter((icon) => icon.purpose === "maskable")).toEqual([
+      expect.objectContaining({ src: "/icon-maskable-192.png", sizes: "192x192" }),
+      expect.objectContaining({ src: "/icon-maskable-512.png", sizes: "512x512" }),
+    ]);
+    expect(manifest.icons.filter((icon) => icon.purpose === "any").map((icon) => icon.src)).toEqual(
+      ["/icon-192.png", "/icon-512.png"],
+    );`;
+  if (next.includes("toHaveLength(2)")) {
+    next = next.replace(
+      'expect(manifest.icons.filter((icon) => icon.purpose === "maskable")).toHaveLength(2);',
+      assertion,
+    );
+  }
+  return next;
+}
+
+function patchWwwManifest(source) {
+  const manifest = JSON.parse(source);
+  manifest.background_color = iconPlate;
+  manifest.theme_color = iconPlate;
+  if (manifest.name === "Rakazo") manifest.name = productName;
+  if (manifest.short_name === "Rakazo") manifest.short_name = productName;
+  manifest.icons = [192, 512].flatMap((size) => [
+    {
+      src: `/icon-${size}.png`,
+      sizes: `${size}x${size}`,
+      type: "image/png",
+      purpose: "any",
+    },
+    {
+      src: `/icon-maskable-${size}.png`,
+      sizes: `${size}x${size}`,
+      type: "image/png",
+      purpose: "maskable",
+    },
+  ]);
+  return `${JSON.stringify(manifest, null, 2)}\n`;
+}
+
+function patchAppMark(source) {
+  return source
+    .replace(
+      /\/\/ The face of the 1024 px monochrome icon:.*\n/,
+      "// Fiwe mark bounds inside the 1024 px monochrome icon.\n",
+    )
+    .replace(
+      /const CROP = \{ x: \d+, y: \d+, size: \d+ \};/,
+      "const CROP = { x: 208, y: 208, size: 608 };",
+    );
 }
 
 function patchIconComposer(source) {
-  return source.replace(/"translation-in-points":\s*\[[^\]]+\]/, '"translation-in-points": [0, 0]');
+  return source
+    .replace(/"translation-in-points":\s*\[[^\]]+\]/, '"translation-in-points": [0, 0]')
+    .replace(
+      /"translucency":\s*\{\s*"enabled":\s*(?:true|false),\s*"value":\s*[\d.]+\s*\}/,
+      '"translucency": {\n        "enabled": false,\n        "value": 0\n      }',
+    )
+    .replace(
+      /"shadow":\s*\{\s*"kind":\s*"neutral",\s*"opacity":\s*[\d.]+\s*\}/,
+      '"shadow": {\n        "kind": "neutral",\n        "opacity": 0\n      }',
+    );
 }
 
 assertBrandContrast();
@@ -1241,6 +1336,16 @@ commit("apps/www/src/components/Logo.astro", logoAstro);
 
 const iconJson = "packages/ui-tokens/assets/Rakazo.icon/icon.json";
 commit(iconJson, patchIconComposer(read(iconJson)));
+commit("apps/web/src/pwa/plugin.ts", patchPwaPlugin(read("apps/web/src/pwa/plugin.ts")));
+commit("apps/web/src/pwa/plugin.test.ts", patchPwaTest(read("apps/web/src/pwa/plugin.test.ts")));
+commit(
+  "apps/www/public/site.webmanifest",
+  patchWwwManifest(read("apps/www/public/site.webmanifest")),
+);
+commit(
+  "apps/mobile/components/app-mark.tsx",
+  patchAppMark(read("apps/mobile/components/app-mark.tsx")),
+);
 
 let persona = read("packages/core/src/bot-avatar-colors.test.ts");
 persona = persona.replace('chatUserBubbleColors("#FFFFFF"', `chatUserBubbleColors("${vanilla}"`);

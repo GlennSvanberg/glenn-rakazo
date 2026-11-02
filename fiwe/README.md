@@ -27,7 +27,7 @@ Do not run `pnpm --filter @rakazo/ui-tokens export:brand` after this. That comma
 
 - Semantic colors in `packages/ui-tokens` (web and mobile) and regenerates `tokens.css`
 - Rethink Sans on web, Electron, and the marketing site, with Arial as the fallback
-- Wordmarks, the F-mark favicon, and the app icons
+- Wordmarks, the Fiwe brain icon (favicon, maskable PWA icons, and app icons), and install-manifest colors `#0B0F1A`
 - The visible product name in the web app, emails, API messages a person can read, and (best effort) desktop, mobile, and the marketing site
 - Bot avatar colors and the rakazo avatar's body and hand paths
 
