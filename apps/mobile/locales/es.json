@@ -1,0 +1,10 @@
+{
+  "ios": {
+    "NSCameraUsageDescription": "FAIWE Agents usa la cámara para que puedas adjuntar fotos a un mensaje para un bot.",
+    "NSPhotoLibraryUsageDescription": "FAIWE Agents usa tu fototeca para que puedas adjuntar imágenes a un mensaje para un bot.",
+    "NSLocalNetworkUsageDescription": "FAIWE Agents se conecta a un servidor de FAIWE Agents autoalojado en tu red local.",
+    "NSMicrophoneUsageDescription": "FAIWE Agents usa el micrófono para las llamadas de voz con tus bots.",
+    "NSSpeechRecognitionUsageDescription": "FAIWE Agents convierte lo que dices en mensajes durante las llamadas de voz.",
+    "NSFaceIDUsageDescription": "Permite que FAIWE Agents acceda a tus datos biométricos de Face ID."
+  }
+}
